@@ -238,7 +238,7 @@ const tests = [
 // Run all tests
 const runTests = async () => {
     console.log('═══════════════════════════════════════════════════════════');
-    console.log('🧪 Sydney Events Aggregator - API Test Suite');
+    console.log('Sydney Events Aggregator - API Test Suite');
     console.log('═══════════════════════════════════════════════════════════\n');
 
     console.log(`${colors.cyan}Testing API at: ${BASE_URL}${colors.reset}\n`);
@@ -246,9 +246,9 @@ const runTests = async () => {
     // Check if server is running
     try {
         await makeRequest(`${BASE_URL}/health`);
-        console.log(`${colors.green}✓ Server is running${colors.reset}\n`);
+        console.log(`${colors.green}[OK] Server is running${colors.reset}\n`);
     } catch (error) {
-        console.log(`${colors.red}✗ Server is not running!${colors.reset}`);
+        console.log(`${colors.red}[ERROR] Server is not running!${colors.reset}`);
         console.log(`${colors.yellow}Please start the server first: npm run dev${colors.reset}\n`);
         process.exit(1);
     }
@@ -263,14 +263,14 @@ const runTests = async () => {
         try {
             const result = await test.run();
             if (result) {
-                console.log(`${colors.green}✓ PASS${colors.reset}`);
+                console.log(`${colors.green}[PASS]${colors.reset}`);
                 passed++;
             } else {
-                console.log(`${colors.red}✗ FAIL${colors.reset}`);
+                console.log(`${colors.red}[FAIL]${colors.reset}`);
                 failed++;
             }
         } catch (error) {
-            console.log(`${colors.red}✗ ERROR: ${error.message}${colors.reset}`);
+            console.log(`${colors.red}[ERROR]: ${error.message}${colors.reset}`);
             failed++;
         }
     }
@@ -285,10 +285,10 @@ const runTests = async () => {
     console.log('═══════════════════════════════════════════════════════════\n');
 
     if (failed === 0) {
-        console.log(`${colors.green}🎉 All tests passed! API is working correctly.${colors.reset}\n`);
+        console.log(`${colors.green}All tests passed! API is working correctly.${colors.reset}\n`);
         process.exit(0);
     } else {
-        console.log(`${colors.yellow}⚠️  Some tests failed. Please review the results above.${colors.reset}\n`);
+        console.log(`${colors.yellow}[WARNING] Some tests failed. Please review the results above.${colors.reset}\n`);
         process.exit(1);
     }
 };

@@ -20,9 +20,9 @@ const runSeed = async () => {
         // Run seeding
         await seedDatabase();
 
-        console.log('\n🎉 Seeding process completed successfully!');
+        console.log('\n[OK] Seeding process completed successfully!');
     } catch (error) {
-        console.error('\n❌ Seeding failed:', error.message);
+        console.error('\n[ERROR] Seeding failed:', error.message);
         process.exit(1);
     } finally {
         // Disconnect

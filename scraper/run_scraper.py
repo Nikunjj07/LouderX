@@ -47,9 +47,9 @@ class ScraperRunner:
                 mongodb_uri = os.getenv('MONGODB_URI', 'mongodb://localhost:27017/sydney-events')
                 self.client = MongoClient(mongodb_uri)
                 self.db = self.client.get_database()
-                print(f"✓ Connected to MongoDB: {self.db.name}")
+                print(f"[OK] Connected to MongoDB: {self.db.name}")
             except Exception as e:
-                print(f"✗ Failed to connect to MongoDB: {e}")
+                print(f"[ERROR] Failed to connect to MongoDB: {e}")
                 self.db = None
     
     def run_all_scrapers(self):
@@ -68,9 +68,9 @@ class ScraperRunner:
             try:
                 events = scraper.scrape()
                 self.all_events.extend(events)
-                print(f"✓ {scraper.source_name}: {len(events)} events scraped\n")
+                print(f"[OK] {scraper.source_name}: {len(events)} events scraped\n")
             except Exception as e:
-                print(f"✗ Error scraping {scraper.source_name}: {e}\n")
+                print(f"[ERROR] Error scraping {scraper.source_name}: {e}\n")
         
         return self.all_events
     
@@ -106,7 +106,7 @@ class ScraperRunner:
         Save events to MongoDB database.
         """
         if not self.db:
-            print("⚠ Database not available. Printing events instead:\n")
+            print("[WARNING] Database not available. Printing events instead:\n")
             self.print_events()
             return
         
@@ -144,9 +144,9 @@ class ScraperRunner:
                 print(f"Error saving event: {event.get('title')} - {e}")
                 skipped += 1
         
-        print(f"✓ Inserted: {inserted}")
-        print(f"✓ Updated: {updated}")
-        print(f"✗ Skipped: {skipped}\n")
+        print(f"[OK] Inserted: {inserted}")
+        print(f"[OK] Updated: {updated}")
+        print(f"[SKIP] Skipped: {skipped}\n")
     
     def print_events(self):
         """

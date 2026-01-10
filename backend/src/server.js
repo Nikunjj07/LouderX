@@ -13,30 +13,30 @@ const startServer = async () => {
         // Start Express server
         const server = app.listen(PORT, () => {
             console.log('═════════════════════════════════════════════════════════');
-            console.log(`🚀 Sydney Events Aggregator API`);
+            console.log(`Sydney Events Aggregator API`);
             console.log('═════════════════════════════════════════════════════════');
-            console.log(`📡 Server running on port ${PORT}`);
-            console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
-            console.log(`🔗 API Base URL: http://localhost:${PORT}`);
-            console.log(`💚 Health Check: http://localhost:${PORT}/health`);
-            console.log(`📚 API Info: http://localhost:${PORT}/api`);
+            console.log(`Server running on port ${PORT}`);
+            console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+            console.log(`API Base URL: http://localhost:${PORT}`);
+            console.log(`Health Check: http://localhost:${PORT}/health`);
+            console.log(`API Info: http://localhost:${PORT}/api`);
             console.log('═════════════════════════════════════════════════════════');
-            console.log('✅ Server is ready to accept requests');
+            console.log('[OK] Server is ready to accept requests');
             console.log('═════════════════════════════════════════════════════════\n');
         });
 
         // Graceful shutdown
         const gracefulShutdown = (signal) => {
-            console.log(`\n⚠️  ${signal} received. Starting graceful shutdown...`);
+            console.log(`\n[WARNING] ${signal} received. Starting graceful shutdown...`);
 
             server.close(() => {
-                console.log('✅ Express server closed');
+                console.log('[OK] Express server closed');
                 process.exit(0);
             });
 
             // Force shutdown after 10 seconds
             setTimeout(() => {
-                console.error('❌ Forced shutdown after timeout');
+                console.error('[ERROR] Forced shutdown after timeout');
                 process.exit(1);
             }, 10000);
         };
@@ -46,7 +46,7 @@ const startServer = async () => {
         process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
     } catch (error) {
-        console.error('❌ Failed to start server:', error.message);
+        console.error('[ERROR] Failed to start server:', error.message);
         process.exit(1);
     }
 };

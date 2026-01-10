@@ -6,7 +6,7 @@ const { seedDatabase } = require('../utils/seedData');
 // Test database connection and CRUD operations
 const testDatabase = async () => {
     try {
-        console.log('🧪 Starting Database Tests...\n');
+        console.log('Starting Database Tests...\n');
         console.log('═══════════════════════════════════════\n');
 
         // Test 1: Database Connection
@@ -15,7 +15,7 @@ const testDatabase = async () => {
         await connectDB();
         const connectionStatus = checkConnection();
         console.log(`Status: ${connectionStatus.status}`);
-        console.log(`Connected: ${connectionStatus.isConnected ? '✅' : '❌'}`);
+        console.log(`Connected: ${connectionStatus.isConnected ? 'YES' : 'NO'}`);
         console.log();
 
         // Test 2: Seed Database
@@ -30,15 +30,15 @@ const testDatabase = async () => {
 
         // Get all events
         const allEvents = await Event.find({});
-        console.log(`✅ Found ${allEvents.length} total events`);
+        console.log(`[OK] Found ${allEvents.length} total events`);
 
         // Get active events
         const activeEvents = await Event.getActiveEvents();
-        console.log(`✅ Found ${activeEvents.length} active events`);
+        console.log(`[OK] Found ${activeEvents.length} active events`);
 
         // Get upcoming events
         const upcomingEvents = await Event.getUpcomingEvents();
-        console.log(`✅ Found ${upcomingEvents.length} upcoming events`);
+        console.log(`[OK] Found ${upcomingEvents.length} upcoming events`);
         console.log();
 
         // Test 4: Create Operation
@@ -54,7 +54,7 @@ const testDatabase = async () => {
             source: 'test.com',
             event_hash: 'test-hash-' + Date.now()
         });
-        console.log(`✅ Created new event: "${newEvent.title}"`);
+        console.log(`[OK] Created new event: "${newEvent.title}"`);
         console.log(`   Event ID: ${newEvent._id}`);
         console.log();
 
@@ -63,7 +63,7 @@ const testDatabase = async () => {
         console.log('─────────────────────────────────────');
         newEvent.description = 'Updated description for test event';
         await newEvent.save();
-        console.log(`✅ Updated event description`);
+        console.log(`[OK] Updated event description`);
         console.log();
 
         // Test 6: Email Subscription
@@ -74,7 +74,7 @@ const testDatabase = async () => {
             event_id: newEvent._id,
             consent: true
         });
-        console.log(`✅ Created email subscription: ${testEmail.email}`);
+        console.log(`[OK] Created email subscription: ${testEmail.email}`);
         console.log(`   For event: ${newEvent.title}`);
         console.log();
 
@@ -84,7 +84,7 @@ const testDatabase = async () => {
         const emailsWithEvents = await Email.find({})
             .populate('event_id')
             .limit(3);
-        console.log(`✅ Found ${emailsWithEvents.length} email subscriptions with event details`);
+        console.log(`[OK] Found ${emailsWithEvents.length} email subscriptions with event details`);
         emailsWithEvents.forEach((sub, index) => {
             console.log(`   ${index + 1}. ${sub.email} → ${sub.event_id?.title || 'Unknown Event'}`);
         });
@@ -94,7 +94,7 @@ const testDatabase = async () => {
         console.log('Test 8: Email Statistics');
         console.log('─────────────────────────────────────');
         const stats = await Email.getStats();
-        console.log(`✅ Email Subscription Statistics:`);
+        console.log(`[OK] Email Subscription Statistics:`);
         console.log(`   Total Subscriptions: ${stats.totalSubscriptions}`);
         console.log(`   Unique Emails: ${stats.uniqueEmails}`);
         console.log(`   Total Events with Subscriptions: ${stats.totalEvents}`);
@@ -106,7 +106,7 @@ const testDatabase = async () => {
         console.log('─────────────────────────────────────');
         await Event.findByIdAndDelete(newEvent._id);
         await Email.deleteMany({ event_id: newEvent._id });
-        console.log(`✅ Deleted test event and related subscriptions`);
+        console.log(`[OK] Deleted test event and related subscriptions`);
         console.log();
 
         // Test 10: Mark Event as Inactive
@@ -115,21 +115,21 @@ const testDatabase = async () => {
         const eventToDeactivate = await Event.findOne({ is_active: true });
         if (eventToDeactivate) {
             await eventToDeactivate.markInactive();
-            console.log(`✅ Marked event as inactive: "${eventToDeactivate.title}"`);
+            console.log(`[OK] Marked event as inactive: "${eventToDeactivate.title}"`);
 
             // Reactivate it
             eventToDeactivate.is_active = true;
             await eventToDeactivate.save();
-            console.log(`✅ Reactivated event for future tests`);
+            console.log(`[OK] Reactivated event for future tests`);
         }
         console.log();
 
         // Final Summary
         console.log('═══════════════════════════════════════');
-        console.log('✅ All Database Tests Passed!');
+        console.log('[OK] All Database Tests Passed!');
         console.log('═══════════════════════════════════════\n');
 
-        console.log('📊 Final Database State:');
+        console.log('Final Database State:');
         const finalEventCount = await Event.countDocuments();
         const finalEmailCount = await Email.countDocuments();
         console.log(`   Events: ${finalEventCount}`);
@@ -137,12 +137,12 @@ const testDatabase = async () => {
         console.log();
 
     } catch (error) {
-        console.error('❌ Test Failed:', error.message);
+        console.error('[ERROR] Test Failed:', error.message);
         console.error(error);
     } finally {
         // Disconnect from database
         await disconnectDB();
-        console.log('👋 Test completed and database disconnected\n');
+        console.log('Test completed and database disconnected\n');
         process.exit(0);
     }
 };

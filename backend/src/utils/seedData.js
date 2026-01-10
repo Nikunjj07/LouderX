@@ -90,19 +90,19 @@ const seedDatabase = async () => {
         console.log('🌱 Starting database seeding...\n');
 
         // Clear existing data (optional - comment out if you want to keep existing data)
-        console.log('🗑️  Clearing existing events...');
+        console.log('[CLEAR] Clearing existing events...');
         await Event.deleteMany({});
-        console.log('🗑️  Clearing existing email subscriptions...');
+        console.log('[CLEAR] Clearing existing email subscriptions...');
         await Email.deleteMany({});
-        console.log('✅ Existing data cleared\n');
+        console.log('[OK] Existing data cleared\n');
 
         // Insert sample events
-        console.log('📝 Inserting sample events...');
+        console.log('[INSERT] Inserting sample events...');
         const insertedEvents = await Event.insertMany(sampleEvents);
-        console.log(`✅ Inserted ${insertedEvents.length} events\n`);
+        console.log(`[OK] Inserted ${insertedEvents.length} events\n`);
 
         // Insert sample email subscriptions
-        console.log('📧 Inserting sample email subscriptions...');
+        console.log('[INSERT] Inserting sample email subscriptions...');
         let emailCount = 0;
 
         for (const emailData of sampleEmails) {
@@ -127,10 +127,10 @@ const seedDatabase = async () => {
                 }
             }
         }
-        console.log(`✅ Inserted ${emailCount} email subscriptions\n`);
+        console.log(`[OK] Inserted ${emailCount} email subscriptions\n`);
 
         // Display summary
-        console.log('📊 Database Seeding Summary:');
+        console.log('Database Seeding Summary:');
         console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
         console.log(`Total Events: ${insertedEvents.length}`);
         console.log(`Total Email Subscriptions: ${emailCount}`);
@@ -138,7 +138,7 @@ const seedDatabase = async () => {
         console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
 
         // Display some sample events
-        console.log('📅 Sample Events:');
+        console.log('Sample Events:');
         insertedEvents.slice(0, 3).forEach((event, index) => {
             console.log(`\n${index + 1}. ${event.title}`);
             console.log(`   Date: ${event.date.toLocaleDateString()}`);
@@ -146,10 +146,10 @@ const seedDatabase = async () => {
             console.log(`   Source: ${event.source}`);
         });
 
-        console.log('\n✅ Database seeding completed successfully!');
+        console.log('\n[OK] Database seeding completed successfully!');
         return { events: insertedEvents, emailCount };
     } catch (error) {
-        console.error('❌ Error seeding database:', error.message);
+        console.error('[ERROR] Error seeding database:', error.message);
         throw error;
     }
 };
