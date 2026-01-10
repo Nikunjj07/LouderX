@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover the best events happening in Sydney. Get notified and book tickets easily.">
+    <title>Sydney Events Aggregator - Discover Events in Sydney</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">Sydney Events</h1>
+                <p class="tagline">Discover the best events in Sydney</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Filters Section -->
+            <section class="filters" id="filters">
+                <div class="filter-group">
+                    <label for="search" class="filter-label">Search</label>
+                    <input 
+                        type="text" 
+                        id="search" 
+                        class="filter-input" 
+                        placeholder="Search events..."
+                    >
+                </div>
+                
+                <div class="filter-group">
+                    <label for="date-filter" class="filter-label">Date</label>
+                    <select id="date-filter" class="filter-select">
+                        <option value="all">All Dates</option>
+                        <option value="today">Today</option>
+                        <option value="tomorrow">Tomorrow</option>
+                        <option value="this-week">This Week</option>
+                        <option value="this-month">This Month</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="location-filter" class="filter-label">Location</label>
+                    <select id="location-filter" class="filter-select">
+                        <option value="all">All Locations</option>
+                    </select>
+                </div>
+                
+                <button class="filter-reset" id="reset-filters">Reset Filters</button>
+            </section>
+
+            <!-- Events Count -->
+            <div class="events-count" id="events-count">
+                <span class="count-number">0</span> events found
+            </div>
+
+            <!-- Loading State -->
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                <p>Loading events...</p>
+            </div>
+
+            <!-- Error State -->
+            <div class="error hidden" id="error">
+                <div class="error-icon">!</div>
+                <h3 class="error-title">Oops! Something went wrong</h3>
+                <p class="error-message" id="error-message">Failed to load events. Please try again later.</p>
+                <button class="error-retry" id="retry-btn">Retry</button>
+            </div>
+
+            <!-- Events Grid -->
+            <div class="events-grid" id="events-grid">
+                <!-- Event cards will be inserted here by JavaScript -->
+            </div>
+
+            <!-- No Results -->
+            <div class="no-results hidden" id="no-results">
+                <div class="no-results-icon">🔍</div>
+                <h3 class="no-results-title">No events found</h3>
+                <p class="no-results-message">Try adjusting your filters or check back later for new events.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">&copy; 2026 Sydney Events Aggregator. All rights reserved.</p>
+            <p class="footer-disclaimer">Event information aggregated from multiple sources. Please verify details with event organizers.</p>
+        </div>
+    </footer>
+
+    <!-- Email Modal -->
+    <div class="modal hidden" id="email-modal">
+        <div class="modal-overlay" id="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <h2 class="modal-title">Get Event Notifications</h2>
+            <p class="modal-description">Enter your email to receive updates about this event and be redirected to get tickets.</p>
+            
+            <form class="modal-form" id="email-form">
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        class="form-input" 
+                        placeholder="your@email.com" 
+                        required
+                    >
+                    <span class="form-error hidden" id="email-error">Please enter a valid email address</span>
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="consent" required>
+                        <span>I agree to receive event updates and promotional emails</span>
+                    </label>
+                    <span class="form-error hidden" id="consent-error">You must agree to continue</span>
+                </div>
+                
+                <button type="submit" class="form-submit" id="submit-btn">
+                    <span class="submit-text">Subscribe & Get Tickets</span>
+                    <span class="submit-loading hidden">Processing...</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
