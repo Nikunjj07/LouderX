@@ -3,7 +3,8 @@
  * Handles all API communication with the backend
  */
 
-const API_BASE_URL = 'http://localhost:5000/api';
+// Import from config
+const API_BASE_URL = CONFIG.API_BASE_URL;
 
 class APIService {
     /**

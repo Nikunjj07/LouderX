@@ -1,21 +1,19 @@
 {
-    "name": "sydney-events-frontend",
-    "version": "1.0.0",
-    "description": "Frontend for Sydney Events Aggregator",
-    "main": "src/main.js",
-    "scripts": {
-        "start": "live-server public/",
-        "dev": "live-server public/",
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "keywords": [
-        "events",
-        "frontend",
-        "sydney"
-    ],
-    "author": "",
-    "license": "MIT",
-    "devDependencies": {
-        "live-server": "^1.2.2"
-    }
+  "name": "sydney-events-frontend",
+  "version": "1.0.0",
+  "description": "Sydney Events Aggregator Frontend",
+  "scripts": {
+    "start": "live-server --port=3000 --no-browser",
+    "build": "echo 'No build needed for static site'",
+    "deploy": "echo 'Deploy to Vercel'"
+  },
+  "keywords": ["events", "sydney", "aggregator"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "env": {
+    "API_URL": "http://localhost:5000/api"
+  }
 }

@@ -1,0 +1,34 @@
+# Vercel Configuration for Frontend
+
+# Build settings
+[build
+]
+  command = "echo 'Static site - no build needed'"
+  publish = "."
+
+# Environment Variables for Production
+# Set these in Vercel Dashboard: Settings > Environment Variables
+
+# API_URL = https: //your-backend-url.onrender.com/api
+
+# Headers for security
+[
+    [headers
+    ]
+]
+  for = "/*"[headers.values
+]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Redirects
+[
+    [redirects
+    ]
+]
+  from = "/api/*"
+  to = "https://your-backend-url.onrender.com/api/:splat"
+  status = 200
+  force = false
