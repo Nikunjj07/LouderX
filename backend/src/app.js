@@ -20,7 +20,7 @@ app.use(helmet()); // Adds security headers
 
 // CORS Configuration
 const corsOptions = {
-    origin: process.env.FRONTEND_URL || '*',
+    origin: '*' || process.env.FRONTEND_URL,
     credentials: true,
     optionsSuccessStatus: 200
 };
