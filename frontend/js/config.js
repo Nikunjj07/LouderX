@@ -8,7 +8,7 @@ const CONFIG = {
     // API Base URL - Change this based on environment
     // Development: 'http://localhost:5000/api'
     // Production: Set via Vercel environment variables or update manually
-    API_BASE_URL: window.ENV?.API_URL || 'http://localhost:5000/api',
+    API_BASE_URL: window.ENV?.API_URL || 'https://louderx.onrender.com/api',
 
     // Other configuration options
     APP_NAME: 'Sydney Events Aggregator',
