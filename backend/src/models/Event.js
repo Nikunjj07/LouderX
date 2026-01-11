@@ -29,7 +29,7 @@ const eventSchema = new mongoose.Schema({
     type: String,
     trim: true,
     validate: {
-      validator: function(v) {
+      validator: function (v) {
         // Basic URL validation
         return !v || /^https?:\/\/.+/.test(v);
       },
@@ -41,7 +41,7 @@ const eventSchema = new mongoose.Schema({
     required: [true, 'Ticket URL is required'],
     trim: true,
     validate: {
-      validator: function(v) {
+      validator: function (v) {
         return /^https?:\/\/.+/.test(v);
       },
       message: 'Invalid ticket URL format'
@@ -70,7 +70,8 @@ const eventSchema = new mongoose.Schema({
     index: true
   }
 }, {
-  timestamps: true // Adds createdAt and updatedAt fields automatically
+  timestamps: true, // Adds createdAt and updatedAt fields automatically
+  collection: 'events' // Explicitly use 'events' collection name
 });
 
 // Compound index for efficient queries
@@ -78,27 +79,27 @@ eventSchema.index({ date: 1, is_active: 1 });
 eventSchema.index({ source: 1, is_active: 1 });
 
 // Virtual for checking if event has passed
-eventSchema.virtual('isPast').get(function() {
+eventSchema.virtual('isPast').get(function () {
   return this.date < new Date();
 });
 
 // Method to mark event as inactive
-eventSchema.methods.markInactive = function() {
+eventSchema.methods.markInactive = function () {
   this.is_active = false;
   this.last_updated = new Date();
   return this.save();
 };
 
 // Static method to get all active events
-eventSchema.statics.getActiveEvents = function() {
+eventSchema.statics.getActiveEvents = function () {
   return this.find({ is_active: true })
     .sort({ date: 1 })
     .exec();
 };
 
 // Static method to get upcoming events
-eventSchema.statics.getUpcomingEvents = function() {
-  return this.find({ 
+eventSchema.statics.getUpcomingEvents = function () {
+  return this.find({
     is_active: true,
     date: { $gte: new Date() }
   })
@@ -107,7 +108,7 @@ eventSchema.statics.getUpcomingEvents = function() {
 };
 
 // Pre-save middleware to update last_updated timestamp
-eventSchema.pre('save', function(next) {
+eventSchema.pre('save', function (next) {
   this.last_updated = new Date();
   next();
 });
